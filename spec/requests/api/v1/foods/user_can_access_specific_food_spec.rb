@@ -13,7 +13,7 @@ describe "foods finder api" do
       food = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_success
-      expect(food[:name]).to eq("Name-1")
+      expect(food[:name]).to eq("Name-1 ")
     end
   end
 end
