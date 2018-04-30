@@ -24,4 +24,13 @@ class Api::V1::FoodsController < ApplicationController
     end
   end
 
+  def update
+    food = Food.find(params["id"])
+    new_name = params["food"]["name"]
+    new_calories = params["food"]["calories"].to_i
+    food.update(name: new_name, calories: new_calories)
+
+    render json: food
+  end
+
 end
