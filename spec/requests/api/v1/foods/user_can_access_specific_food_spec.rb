@@ -15,5 +15,13 @@ describe "foods finder api" do
       expect(response).to be_success
       expect(food[:name]).to eq("Name-1")
     end
+
+    it "returns a 400 if food not found" do
+      get "/api/v1/foods/3"
+
+      food = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+    end
   end
 end
