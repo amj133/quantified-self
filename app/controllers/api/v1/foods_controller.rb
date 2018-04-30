@@ -5,6 +5,12 @@ class Api::V1::FoodsController < ApplicationController
   end
 
   def show
+    begin
+      food = Food.find(params[:id])
+    rescue
+      render status: 400, json: {message: "Food not found"}
+      return
+    end
     render json: Food.find(params[:id])
   end
 
