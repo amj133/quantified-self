@@ -9,7 +9,7 @@ describe "meals finder api" do
 
     snack = create(:meal, name: "Snack")
     cheese = create(:food, name: "Cheese")
-    monkey_brain = create(:food, name: "MonkeyBrain")
+    monkey_brain = create(:food, name: "Monkey Brain")
     FoodMeal.create(meal: snack, food: cheese)
     FoodMeal.create(meal: snack, food: monkey_brain)
   end
@@ -21,9 +21,9 @@ describe "meals finder api" do
       meal = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_success
-      expect(meals[:name]).to eq("Snack")
-      expect(meals[:foods].first[:name]).to eq("Cheese")
-      expect(meals[:foods].last[:name]).to eq("Monkey Brain")
+      expect(meal[:name]).to eq("Snack")
+      expect(meal[:foods].first[:name]).to eq("Cheese")
+      expect(meal[:foods].last[:name]).to eq("Monkey Brain")
     end
   end
 end
