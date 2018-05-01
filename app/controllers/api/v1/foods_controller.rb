@@ -33,4 +33,15 @@ class Api::V1::FoodsController < ApplicationController
     render json: food
   end
 
+  def destroy
+    begin
+      food = Food.find(params["id"])
+      food.destroy
+    rescue
+      render status: 404, json: {message: "Food not found"}
+      return
+    end
+    render status: 204, json: {message: "Food deleted"}
+  end
+
 end
