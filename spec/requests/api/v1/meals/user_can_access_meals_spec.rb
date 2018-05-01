@@ -2,7 +2,15 @@ require 'rails_helper'
 
 describe "meals finder api" do
   before(:each) do
-    Food.create!(id: 1, name: "Banana", calories: 100)
+    breakfast = create(:meal, name: "Breakfast")
+    banana = create(:food, name: "Banana")
+    oatmeal = create(:food, name: "Oatmeal")
+    FoodMeal.create(meal: breakfast, food: banana)
+    FoodMeal.create(meal: breakfast, food: oatmeal)
+
+    snack = create(:meal, name: "Snack")
+    cheese = create(:food, name: "Cheese")
+    FoodMeal.create(meal: snack, food: cheese)
   end
 
   context "GET /api/v1/meals" do
@@ -13,9 +21,10 @@ describe "meals finder api" do
 
       expect(response).to be_success
       expect(meals.first[:name]).to eq("Breakfast")
-      expect(meals.first[:name][:foods].first[:name]).to eq("Banana")
+      expect(meals.first[:foods].first[:name]).to eq("Banana")
+      expect(meals.first[:foods].last[:name]).to eq("Oatmeal")
       expect(meals.last[:name]).to eq("Snack")
-      expect(meals.last[:name][:foods].last[:name]).to eq("Cheese")
+      expect(meals.last[:foods].last[:name]).to eq("Cheese")
     end
   end
 end
